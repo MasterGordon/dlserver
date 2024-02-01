@@ -17,8 +17,6 @@ const config = {
 Bun.serve({
   fetch: async (req) => {
     const url = new URL(req.url);
-    if (url.pathname === "/")
-      return new Response(Bun.file("./static/index.html"));
 
     if (url.pathname === "/admin") {
       if (req.method === "POST") {
@@ -87,7 +85,8 @@ const resolveFile = async (url: string): Promise<BunFile | undefined> => {
     }
   }
   if (!filePath.startsWith(config.folder)) return undefined;
-  return Bun.file(filePath);
+  const file = Bun.file(filePath);
+  return (await file.exists()) ? file : undefined;
 };
 
 const getPw = (body: unknown) => {
