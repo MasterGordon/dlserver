@@ -8,9 +8,9 @@ db.run(
 );
 
 const config = {
-  port: 8080 || process.env.PORT,
-  folder: path.resolve("./public" || process.env.FOLDER),
-  adminPassword: "admin" || process.env.ADMIN_PASSWORD,
+  port: process.env.PORT ? Number(process.env.PORT) : 8080,
+  folder: path.resolve(process.env.FOLDER || "./public"),
+  adminPassword: process.env.ADMIN_PASSWORD || "admin",
   resolveIndex: true,
 };
 
